@@ -315,7 +315,7 @@ router.get('/data/:id', async (req, res) => {
 
 router.get('/verifyemail/:token', async (req, res) => {
   try {
-    const url = `http://${process.env.HOST}:${process.env.PORT_FRONT_END}/login`;
+    const url = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/login`;
     const decodedToken = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
     const dbUser = await User.findById(decodedToken._id);
     console.log(decodedToken);
@@ -364,7 +364,7 @@ router.post('/loginrecovery', async (req, res) => {
 
 router.post('/reset', async (req, res) => {
   try {
-    const url = `http://${process.env.HOST}:${process.env.PORT_FRONT_END}/login`;
+    // const url = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/login`;
     const dbUser = await User.findById(res.locals._id, { password: 1 });
     dbUser.password = bcrypt.hashSync(req.body.password, 10);
     await dbUser.save();
