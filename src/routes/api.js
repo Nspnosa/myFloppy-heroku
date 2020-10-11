@@ -107,6 +107,9 @@ router.post('/login', async (req, res) => {
     if (!bcrypt.compareSync(req.body.password, userData.password)) {
       return res.status(400).json({ msg: 'wrong password' });
     }
+    if (!userData.verified){
+      return res.status(400).json({msg: 'Please verify your email first'})
+    }
     const token = jwt.sign({ _id: userData._id }, process.env.JWT_SECRET);
     return res.json({ msg: 'login successful', token });
   } catch (error) {
