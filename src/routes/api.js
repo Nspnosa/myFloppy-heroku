@@ -27,9 +27,8 @@ async function sendConfirmationEmail(token, email, emailRecovery = false) {
   });
   // send mail with defined transport object
   const url = emailRecovery
-    ? `http://${process.env.HOST}:${process.env.PORT_FRONT_END}/resetaccount/${token}`
-    : `http://${process.env.HOST}:${process.env.PORT}/api/verifyemail/${token}`;
-
+    ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/resetaccount/${token}`
+    : `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/api/verifyemail/${token}`;
   const message = emailRecovery
     ? `Password recovery was requested, please visit <a href="${url}">this link</a>`
     : `Please verify your email by visiting <a href="${url}">this link</a>`;
